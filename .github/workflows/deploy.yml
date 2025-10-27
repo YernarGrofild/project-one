@@ -2,7 +2,7 @@ name: 🚀 Build & Deploy React to VPS
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]   # поменяй если у тебя master
 
 jobs:
   deploy:
@@ -10,13 +10,13 @@ jobs:
 
     env:
       APP_DIR: frontend
-      DIST_DIR: build    # если Vite — поменяй на: dist
+      DIST_DIR: build     # у CRA = build; если Vite — dist
 
     steps:
-      - name: 🧩 Checkout code
+      - name: 🧩 Checkout
         uses: actions/checkout@v4
 
-      - name: 🟢 Setup Node.js
+      - name: 🟢 Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -29,12 +29,18 @@ jobs:
         working-directory: ${{ env.APP_DIR }}
         run: npm run build
 
-      - name: 🔐 Setup SSH
+      - name: 🔐 Setup SSH config
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          echo -e "Host vps\n  HostName ${{ secrets.SSH_HOST }}\n  User ${{ secrets.SSH_USER }}\n  IdentityFile ~/.ssh/id_ed25519\n  StrictHostKeyChecking no" > ~/.ssh/config
+          printf "Host vps\n  HostName %s\n  User %s\n  IdentityFile ~/.ssh/id_ed25519\n  StrictHostKeyChecking no\n" \
+            "${{ secrets.SSH_HOST }}" "${{ secrets.SSH_USER }}" > ~/.ssh/config
+
+      # <<< Диагностика SSH/rsync
+      - name: 🔎 Debug SSH to server
+        run: |
+          ssh -vvv vps 'echo "SSH OK on $(hostname) / $(uname -a)"; which rsync || echo "rsync NOT FOUND"'
 
       - name: 🗂️ Ensure target dir
         run: ssh vps 'sudo mkdir -p /var/www/mysite && sudo chown -R $USER:$USER /var/www/mysite'
