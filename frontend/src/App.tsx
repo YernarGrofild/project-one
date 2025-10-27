@@ -10,8 +10,8 @@ function App() {
       background: '#0d1117',
       color: '#61dafb'
     }}>
-      <h1>Hello from React 🚀</h1>
-      <p>Deployed automatically from GitHub → VPS</p>
+      <h1>Hello Beknur, Hello Dias! 🚀</h1>
+      <p>I deployed my firs web-page!</p>
     </div>
   );
 }
