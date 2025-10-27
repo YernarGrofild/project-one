@@ -38,15 +38,19 @@ jobs:
             "${{ secrets.SSH_HOST }}" "${{ secrets.SSH_USER }}" > ~/.ssh/config
 
       # <<< Диагностика SSH/rsync
-      - name: 🔎 Debug SSH to server
+      - name: 🔐 Setup SSH
         run: |
-          ssh -vvv vps 'echo "SSH OK on $(hostname) / $(uname -a)"; which rsync || echo "rsync NOT FOUND"'
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf "Host vps\n  HostName %s\n  User %s\n  IdentityFile ~/.ssh/id_ed25519\n  StrictHostKeyChecking no\n" \
+            "${{ secrets.SSH_HOST }}" "${{ secrets.SSH_USER }}" > ~/.ssh/config
+
+      - name: 🔎 Debug SSH
+        run: ssh -vvv vps 'echo "SSH OK on $(hostname)" && which rsync || echo "rsync missing"'
 
       - name: 🗂️ Ensure target dir
-        run: ssh vps 'sudo mkdir -p /var/www/mysite && sudo chown -R $USER:$USER /var/www/mysite'
+        run: ssh vps 'mkdir -p /var/www/mysite && chmod -R 755 /var/www/mysite'
 
       - name: 🚀 Upload build to VPS
         run: rsync -avz --delete ${{ env.APP_DIR }}/${{ env.DIST_DIR }}/ vps:/var/www/mysite/
-
-      - name: 🔄 Reload Nginx
-        run: ssh vps 'sudo nginx -t && sudo systemctl reload nginx'
