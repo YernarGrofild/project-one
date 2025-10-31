@@ -12,8 +12,8 @@ function App() {
         color: "#61dafb",
       }}
     >
-      <h1>Hello Beknur, Hello Dias and Araylym! 🚀</h1>
-      <p>Thank you for your help!</p>
+      <h1>Тут могла быть ваша реклама!🚀</h1>
+      <p>Заказать рекламу +77059820556!</p>
     </div>
   );
 }
