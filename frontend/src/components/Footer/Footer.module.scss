@@ -1,0 +1,26 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
+.footer {
+  margin-top: 30px;
+  border-top: 1px solid $border;
+  background: rgba(11, 15, 23, 0.6);
+}
+
+.inner {
+  @include container;
+  padding: 18px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: $muted;
+  font-size: 14px;
+}
+
+@media (max-width: 760px) {
+  .inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}

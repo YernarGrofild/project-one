@@ -2,55 +2,48 @@ name: 🚀 Build & Deploy React to VPS
 
 on:
   push:
-    branches: [ main ]   # поменяй если у тебя master
+    branches: [main]
 
 jobs:
-  deploy:
+  build-and-push:
     runs-on: ubuntu-latest
-
-    env:
-      APP_DIR: frontend
-      DIST_DIR: build     # у CRA = build; если Vite — dist
-
     steps:
-      - name: 🧩 Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: 🟢 Setup Node
-        uses: actions/setup-node@v4
+      # Подготовка Docker buildx
+      - uses: docker/setup-buildx-action@v3
+
+      # Логинимся в ghcr.io через PAT
+      - uses: docker/login-action@v3
         with:
-          node-version: 20
+          registry: ghcr.io
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: 📦 Install deps
-        working-directory: ${{ env.APP_DIR }}
-        run: npm ci
+      # Собираем образ из директории frontend и пушим
+      - uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          file: ./frontend/Dockerfile
+          push: true
+          tags: ghcr.io/${{ secrets.REGISTRY_USER }}/projectone-frontend:latest
 
-      - name: 🏗️ Build
-        working-directory: ${{ env.APP_DIR }}
-        run: npm run build
-
-      - name: 🔐 Setup SSH config
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          printf "Host vps\n  HostName %s\n  User %s\n  IdentityFile ~/.ssh/id_ed25519\n  StrictHostKeyChecking no\n" \
-            "${{ secrets.SSH_HOST }}" "${{ secrets.SSH_USER }}" > ~/.ssh/config
-
-      # <<< Диагностика SSH/rsync
-      - name: 🔐 Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          printf "Host vps\n  HostName %s\n  User %s\n  IdentityFile ~/.ssh/id_ed25519\n  StrictHostKeyChecking no\n" \
-            "${{ secrets.SSH_HOST }}" "${{ secrets.SSH_USER }}" > ~/.ssh/config
-
-      - name: 🔎 Debug SSH
-        run: ssh -vvv vps 'echo "SSH OK on $(hostname)" && which rsync || echo "rsync missing"'
-
-      - name: 🗂️ Ensure target dir
-        run: ssh vps 'mkdir -p /var/www/mysite && chmod -R 755 /var/www/mysite'
-
-      - name: 🚀 Upload build to VPS
-        run: rsync -avz --delete ${{ env.APP_DIR }}/${{ env.DIST_DIR }}/ vps:/var/www/mysite/
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      # Подключаемся к VPS и разворачиваем контейнер
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            # логин в GHCR через PAT
+            echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ secrets.REGISTRY_USER }} --password-stdin
+            # тянем образ и рестартуем контейнер
+            docker pull ghcr.io/${{ secrets.REGISTRY_USER }}/projectone-frontend:latest
+            docker stop projectone-frontend || true
+            docker rm projectone-frontend || true
+            docker run -d --name projectone-frontend -p 80:80 ghcr.io/${{ secrets.REGISTRY_USER }}/projectone-frontend:latest
