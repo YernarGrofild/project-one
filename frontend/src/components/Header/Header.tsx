@@ -24,7 +24,9 @@ export default function Header({
           <div className={styles.logo} />
           <div>
             <div className={styles.title}>ProjectOne Shop</div>
-            <div className={styles.subtitle}>Базовый магазин на React</div>
+            <div className={styles.subtitle}>
+              Тестовый сайт на проверку безопасности
+            </div>
           </div>
         </div>
 

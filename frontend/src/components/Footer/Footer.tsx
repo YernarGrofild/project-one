@@ -7,7 +7,9 @@ export default function Footer() {
         <div className={styles.left}>
           © {new Date().getFullYear()} ProjectOne Shop
         </div>
-        <div className={styles.right}>Demo UI · React + TS + SCSS</div>
+        <div className={styles.right}>
+          По вопросам обращайтесь в Telegram: @YernarGrofild
+        </div>
       </div>
     </footer>
   );

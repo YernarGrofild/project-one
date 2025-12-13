@@ -1,52 +1,58 @@
 import { Product } from "../types/shop";
+import iPhone15 from "../assets/iPhone15.png";
+import iPhone15PM from "../assets/iPhone15PM.png";
+import MacBookAir15 from "../assets/MacBookAir15.png";
+import MacBookPro16 from "../assets/MacBookPro16.png";
+import AirPods4 from "../assets/AirPods4.png";
+import AppleWatchSE from "../assets/AppleWatchSE.png";
 
 export const products: Product[] = [
   {
     id: "p1",
-    title: "Phone Nova X",
-    description: "OLED дисплей, 128GB, быстрая зарядка.",
-    price: 199990,
+    title: "iPhone 15",
+    description: "OLED дисплей, 128GB, 60Hz.",
+    price: 349990,
     category: "Phones",
-    image: "https://picsum.photos/seed/phone1/600/400",
+    image: iPhone15,
   },
   {
     id: "p2",
-    title: "Phone Nova Pro",
-    description: "Камера 50MP, 256GB, 120Hz.",
-    price: 299990,
+    title: "iPhone 15 Pro Max",
+    description: "OLED дисплей, 256GB, 120Hz.",
+    price: 839990,
     category: "Phones",
-    image: "https://picsum.photos/seed/phone2/600/400",
+    image: iPhone15PM,
   },
   {
     id: "p3",
-    title: "Laptop Air 14",
-    description: "Лёгкий, тихий, 16GB RAM.",
-    price: 449990,
+    title: "MacBook Air 15 M3",
+    description: "8/512GB, 15.3-дюймовый дисплей.",
+    price: 849990,
     category: "Laptops",
-    image: "https://picsum.photos/seed/laptop1/600/400",
+    image: MacBookAir15,
   },
   {
     id: "p4",
-    title: "Laptop Studio 16",
-    description: "Экран 16”, мощный процессор, SSD.",
-    price: 649990,
+    title: "MacBook Pro 16 M3",
+    description: "16/512GB, 16-дюймовый дисплей.",
+    price: 1239990,
     category: "Laptops",
-    image: "https://picsum.photos/seed/laptop2/600/400",
+    image: MacBookPro16,
   },
   {
     id: "p5",
-    title: "Headphones Wave",
-    description: "Шумоподавление, Bluetooth 5.3.",
+    title: "AirPods 4",
+    description: "Шумоподавление, Bluetooth 5.3",
     price: 59990,
     category: "Accessories",
-    image: "https://picsum.photos/seed/acc1/600/400",
+    image: AirPods4,
   },
   {
     id: "p6",
-    title: "Charger 65W",
-    description: "USB-C PD, компактный адаптер.",
-    price: 14990,
+    title: "Apple Watch SE",
+    description: "40mm, GPS, Cellular",
+    price: 64990,
     category: "Accessories",
-    image: "https://picsum.photos/seed/acc2/600/400",
+    image: AppleWatchSE,
   },
 ];
