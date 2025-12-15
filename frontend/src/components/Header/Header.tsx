@@ -1,22 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
 
 type Props = {
-  query: string;
-  onQueryChange: (v: string) => void;
-  category: string;
-  onCategoryChange: (v: string) => void;
   cartCount: number;
   onOpenCart: () => void;
 };
 
-export default function Header({
-  query,
-  onQueryChange,
-  category,
-  onCategoryChange,
-  cartCount,
-  onOpenCart,
-}: Props) {
+export default function Header({ cartCount, onOpenCart }: Props) {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
@@ -31,23 +27,9 @@ export default function Header({
         </div>
 
         <div className={styles.controls}>
-          <input
-            className={styles.search}
-            placeholder="Поиск товара..."
-            value={query}
-            onChange={(e) => onQueryChange(e.target.value)}
-          />
-
-          <select
-            className={styles.select}
-            value={category}
-            onChange={(e) => onCategoryChange(e.target.value)}
-          >
-            <option value="All">Все категории</option>
-            <option value="Phones">Phones</option>
-            <option value="Laptops">Laptops</option>
-            <option value="Accessories">Accessories</option>
-          </select>
+          <button className={styles.loginBtn} onClick={handleLogin}>
+            Войти
+          </button>
 
           <button className={styles.cartBtn} onClick={onOpenCart}>
             Корзина

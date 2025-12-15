@@ -1,0 +1,11 @@
+.logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    rgba(97, 218, 251, 0.9),
+    rgba(97, 218, 251, 0.1)
+  );
+  box-shadow: $shadow;
+}

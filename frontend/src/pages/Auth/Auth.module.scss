@@ -1,0 +1,62 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(97, 218, 251, 0.05),
+    rgba(12, 18, 32, 0.95)
+  );
+}
+
+.card {
+  width: min(440px, 100%);
+  background: $panel2;
+  border: 1px solid $border;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid $border;
+}
+
+.button {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(97, 218, 251, 0.35);
+  background: rgba(97, 230, 251, 0.697);
+  color: $text;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.reg_button {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(97, 218, 251, 0.35);
+  background: rgba(97, 218, 251, 0.12);
+  color: $text;
+  cursor: pointer;
+  font-weight: 700;
+}

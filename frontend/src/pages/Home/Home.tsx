@@ -57,16 +57,29 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-      <Header
-        query={query}
-        onQueryChange={setQuery}
-        category={category}
-        onCategoryChange={setCategory}
-        cartCount={cartCount}
-        onOpenCart={() => setCartOpen(true)}
-      />
+      <Header cartCount={cartCount} onOpenCart={() => setCartOpen(true)} />
 
       <main className={styles.main}>
+        <section className={styles.filters}>
+          <input
+            className={styles.search}
+            placeholder="Поиск товара..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+
+          <select
+            className={styles.select}
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="All">Все категории</option>
+            <option value="Phones">Phones</option>
+            <option value="Laptops">Laptops</option>
+            <option value="Accessories">Accessories</option>
+          </select>
+        </section>
+
         <section className={styles.hero}>
           <div className={styles.hTitle}>Каталог товаров</div>
           <div className={styles.hSub}>

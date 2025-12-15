@@ -52,18 +52,18 @@
   align-items: center;
 }
 
-.search,
-.select {
+.loginBtn {
+  border: 1px solid $border;
   background: $panel2;
   color: $text;
-  border: 1px solid $border;
-  border-radius: 12px;
   padding: 10px 12px;
-  outline: none;
-}
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
 
-.search {
-  width: min(320px, 40vw);
+  &:hover {
+    border-color: rgba(97, 218, 251, 0.35);
+  }
 }
 
 .cartBtn {
@@ -99,15 +99,13 @@
   }
   .controls {
     width: 100%;
+    justify-content: space-between;
   }
-  .search {
-    width: 100%;
-  }
-  .select {
-    width: 100%;
+  .loginBtn {
+    flex: 1;
   }
   .cartBtn {
-    width: 100%;
+    flex: 1;
     justify-content: center;
   }
 }
