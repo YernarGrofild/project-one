@@ -1,18 +1,20 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
 
 type Props = {
   cartCount: number;
   onOpenCart: () => void;
+  isAuthed: boolean;
+  onLoginClick: () => void;
+  onLogoutClick: () => void;
 };
 
-export default function Header({ cartCount, onOpenCart }: Props) {
-  const navigate = useNavigate();
-
-  const handleLogin = () => {
-    navigate("/login");
-  };
-
+export default function Header({
+  cartCount,
+  onOpenCart,
+  isAuthed,
+  onLoginClick,
+  onLogoutClick,
+}: Props) {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
@@ -27,14 +29,21 @@ export default function Header({ cartCount, onOpenCart }: Props) {
         </div>
 
         <div className={styles.controls}>
-          <button className={styles.loginBtn} onClick={handleLogin}>
-            Войти
-          </button>
+          {!isAuthed ? (
+            <button className={styles.loginBtn} onClick={onLoginClick}>
+              Войти
+            </button>
+          ) : (
+            <button className={styles.loginBtn} onClick={onLogoutClick}>
+              Выйти
+            </button>
+          )}
 
-          <button className={styles.cartBtn} onClick={onOpenCart}>
-            Корзина
-            <span className={styles.badge}>{cartCount}</span>
-          </button>
+          {isAuthed && (
+            <button className={styles.cartBtn} onClick={onOpenCart}>
+              Корзина <span className={styles.badge}>{cartCount}</span>
+            </button>
+          )}
         </div>
       </div>
     </header>
