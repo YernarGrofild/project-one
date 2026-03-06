@@ -3,7 +3,6 @@ import photo1 from "../../assets/photo1.jpg";
 import styles from "./Home.module.scss";
 
 export default function Home() {
-  const year = new Date().getFullYear();
   const [isGiftOpen, setIsGiftOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const promoCode = "8march{c3rt1f1c4t_";
