@@ -1,57 +1,42 @@
-@use "./variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:wght@600;700;800&display=swap");
 
 * {
   box-sizing: border-box;
 }
+
 html,
-body {
-  height: 100%;
+body,
+#root {
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  background: $bg; // только базовый цвет
-  color: $text;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial,
-    "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-  position: relative;
+  font-family: "Manrope", "Trebuchet MS", sans-serif;
+  color: #4a2f25;
+  background: linear-gradient(145deg, #fff8ef 0%, #ffe9db 44%, #ffd9ce 100%);
+  background-attachment: fixed;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Фиксированный слой градиентов — не повторяется и не "обрывается" */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-
-  background: radial-gradient(
-      1200px 600px at 20% 0%,
-      rgba(251, 97, 97, 0.2),
-      transparent 60%
-    ),
-    radial-gradient(
-      900px 500px at 80% 10%,
-      rgba(97, 218, 251, 0.2),
-      transparent 55%
-    ),
-    radial-gradient(
-      800px 500px at 50% 90%,
-      rgba(97, 164, 251, 0.146),
-      transparent 60%
-    );
-
-  /* важное: без повторов */
-  background-repeat: no-repeat;
+::selection {
+  background: rgba(255, 126, 116, 0.28);
 }
 
 a {
   color: inherit;
   text-decoration: none;
 }
+
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
