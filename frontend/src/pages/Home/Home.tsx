@@ -260,7 +260,6 @@ export default function Home() {
               </button>
             </div>
 
-            <p className={styles.modalHint}>Сохрани этот код в заметках.</p>
             <button
               type="button"
               className={styles.closeModalBtn}
