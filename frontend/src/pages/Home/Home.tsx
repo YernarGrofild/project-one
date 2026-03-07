@@ -89,7 +89,9 @@ export default function Home() {
         <span className={`${styles.glow} ${styles.glowOne}`} />
         <span className={`${styles.glow} ${styles.glowTwo}`} />
         <span className={`${styles.glow} ${styles.glowThree}`} />
+      </div>
 
+      <div className={styles.petalLayer} aria-hidden="true">
         {petals.map((index) => (
           <span
             key={index}
@@ -140,22 +142,54 @@ export default function Home() {
           </div>
 
           <div className={styles.heroArt} aria-hidden="true">
-            <div className={styles.orbit}>
-              <span className={styles.core} />
-              <span className={`${styles.ring} ${styles.ringOne}`} />
-              <span className={`${styles.ring} ${styles.ringTwo}`} />
+            <div className={styles.flowerScene}>
+              <div className={`${styles.flower} ${styles.flowerLeft}`}>
+                <span className={styles.flowerStem} />
+                <span className={`${styles.flowerLeaf} ${styles.flowerLeafLeft}`} />
+                <span className={`${styles.flowerLeaf} ${styles.flowerLeafRight}`} />
+                <div className={styles.blossom}>
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalOne}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalTwo}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalThree}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalFour}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalFive}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalSix}`} />
+                  <span className={styles.flowerCore} />
+                </div>
+              </div>
 
-              <span className={`${styles.orbitPetal} ${styles.petalOne}`} />
-              <span className={`${styles.orbitPetal} ${styles.petalTwo}`} />
-              <span className={`${styles.orbitPetal} ${styles.petalThree}`} />
-              <span className={`${styles.orbitPetal} ${styles.petalFour}`} />
-              <span className={`${styles.orbitPetal} ${styles.petalFive}`} />
-              <span className={`${styles.orbitPetal} ${styles.petalSix}`} />
-              <span className={`${styles.orbitPetal} ${styles.petalSeven}`} />
-              <span className={`${styles.orbitPetal} ${styles.petalEight}`} />
+              <div className={`${styles.flower} ${styles.flowerCenter}`}>
+                <span className={styles.flowerStem} />
+                <span className={`${styles.flowerLeaf} ${styles.flowerLeafLeft}`} />
+                <span className={`${styles.flowerLeaf} ${styles.flowerLeafRight}`} />
+                <div className={styles.blossom}>
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalOne}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalTwo}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalThree}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalFour}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalFive}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalSix}`} />
+                  <span className={styles.flowerCore} />
+                </div>
+              </div>
+
+              <div className={`${styles.flower} ${styles.flowerRight}`}>
+                <span className={styles.flowerStem} />
+                <span className={`${styles.flowerLeaf} ${styles.flowerLeafLeft}`} />
+                <span className={`${styles.flowerLeaf} ${styles.flowerLeafRight}`} />
+                <div className={styles.blossom}>
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalOne}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalTwo}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalThree}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalFour}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalFive}`} />
+                  <span className={`${styles.blossomPetal} ${styles.blossomPetalSix}`} />
+                  <span className={styles.flowerCore} />
+                </div>
+              </div>
+
+              <span className={styles.flowerGround} />
             </div>
-
-            <p className={styles.artLabel}>8 марта</p>
           </div>
         </section>
 
@@ -218,7 +252,7 @@ export default function Home() {
 
         <footer className={`${styles.closing} ${styles.reveal} ${styles.delaySeven}`}>
           <p>
-            Что-ж молодец что вычитала все. Теперь включай свое внимание на максимум и пиздуй за подарком
+            Что-ж молодец что вычитала все. Теперь включай свое внимание на максимум и метнись за подарком
           </p>
           <strong>С благодарностью, Ернар</strong>
           <div className={styles.closingActions}>

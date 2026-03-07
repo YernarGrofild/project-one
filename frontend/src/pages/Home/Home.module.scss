@@ -16,9 +16,11 @@
 .page::before {
   z-index: -2;
   background:
-    radial-gradient(62rem 32rem at 12% -4%, rgba(255, 176, 131, 0.42), transparent 62%),
-    radial-gradient(56rem 30rem at 95% 18%, rgba(255, 122, 160, 0.28), transparent 66%),
-    radial-gradient(48rem 28rem at 50% 112%, rgba(255, 221, 168, 0.48), transparent 70%);
+    radial-gradient(64rem 34rem at 12% -4%, rgba(255, 176, 131, 0.5), transparent 62%),
+    radial-gradient(58rem 32rem at 95% 18%, rgba(255, 122, 160, 0.36), transparent 66%),
+    radial-gradient(54rem 30rem at 50% 112%, rgba(255, 221, 168, 0.56), transparent 70%);
+  transform-origin: center;
+  animation: skyDrift 22s ease-in-out infinite alternate;
 }
 
 .page::after {
@@ -30,7 +32,9 @@
     transparent 1px,
     transparent 14px
   );
-  opacity: 0.2;
+  opacity: 0.28;
+  mix-blend-mode: soft-light;
+  animation: grainShift 14s steps(14) infinite;
 }
 
 .motionField {
@@ -39,40 +43,83 @@
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
+  isolation: isolate;
+}
+
+.petalLayer {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.motionField::before,
+.motionField::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+}
+
+.motionField::before {
+  background:
+    conic-gradient(
+      from 20deg at 50% 50%,
+      rgba(255, 146, 153, 0.2),
+      rgba(255, 205, 132, 0.22),
+      rgba(255, 130, 172, 0.2),
+      rgba(255, 146, 153, 0.2)
+    ),
+    radial-gradient(circle at 22% 28%, rgba(255, 255, 255, 0.34), transparent 44%),
+    radial-gradient(circle at 76% 66%, rgba(255, 178, 147, 0.26), transparent 48%);
+  filter: blur(46px);
+  opacity: 0.58;
+  animation: auroraSpin 32s linear infinite;
+}
+
+.motionField::after {
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.58) 0 1.2px, transparent 1.8px) 0 0 / 112px
+      112px,
+    radial-gradient(circle, rgba(255, 240, 214, 0.5) 0 1px, transparent 1.7px) 42px 56px / 138px
+      138px;
+  opacity: 0.38;
+  animation: sparkFloat 20s linear infinite;
 }
 
 .glow {
   position: absolute;
   border-radius: 999px;
-  filter: blur(4px);
-  opacity: 0.9;
-  animation: floatSoft 14s ease-in-out infinite alternate;
+  filter: blur(8px);
+  opacity: 1;
+  mix-blend-mode: screen;
+  animation: floatSoft 10s ease-in-out infinite alternate;
 }
 
 .glowOne {
-  width: 28rem;
-  height: 28rem;
-  top: -10rem;
-  left: -7rem;
-  background: radial-gradient(circle, rgba(255, 158, 123, 0.7), transparent 68%);
+  width: 36rem;
+  height: 36rem;
+  top: -13rem;
+  left: -11rem;
+  background: radial-gradient(circle, rgba(255, 158, 123, 0.84), transparent 68%);
 }
 
 .glowTwo {
-  width: 34rem;
-  height: 34rem;
-  top: 15%;
-  right: -14rem;
-  background: radial-gradient(circle, rgba(255, 135, 170, 0.55), transparent 70%);
-  animation-duration: 18s;
+  width: 44rem;
+  height: 44rem;
+  top: 8%;
+  right: -16rem;
+  background: radial-gradient(circle, rgba(255, 135, 170, 0.7), transparent 70%);
+  animation-duration: 15s;
 }
 
 .glowThree {
-  width: 40rem;
-  height: 40rem;
-  bottom: -21rem;
-  left: 22%;
-  background: radial-gradient(circle, rgba(255, 231, 181, 0.8), transparent 72%);
-  animation-duration: 16s;
+  width: 52rem;
+  height: 52rem;
+  bottom: -26rem;
+  left: 16%;
+  background: radial-gradient(circle, rgba(255, 231, 181, 0.9), transparent 72%);
+  animation-duration: 14s;
 }
 
 .petalDrop {
@@ -474,131 +521,179 @@
   min-height: 21rem;
   border: 1px solid rgba(193, 102, 76, 0.24);
   border-radius: 1.35rem;
-  background: radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.95), rgba(255, 223, 206, 0.7));
+  background: radial-gradient(circle at 50% 26%, rgba(255, 255, 255, 0.96), rgba(255, 223, 206, 0.76));
   display: grid;
-  place-items: center;
+  place-items: end center;
   overflow: hidden;
+  position: relative;
+  padding: 1rem 1rem 1.4rem;
 }
 
 .heroArt::before {
   content: "";
   position: absolute;
-  width: 150%;
-  aspect-ratio: 1;
+  width: 130%;
+  height: 130%;
   border-radius: 999px;
-  background: conic-gradient(
-    from 220deg,
-    rgba(255, 164, 137, 0.18),
-    rgba(255, 125, 153, 0.22),
-    rgba(255, 224, 181, 0.18),
-    rgba(255, 164, 137, 0.18)
-  );
-  animation: spinSlow 18s linear infinite;
+  top: -42%;
+  left: -15%;
+  background: radial-gradient(circle, rgba(255, 171, 141, 0.26), transparent 72%);
+  animation: sunlight 8s ease-in-out infinite alternate;
 }
 
-.orbit {
-  width: min(86%, 18.75rem);
-  aspect-ratio: 1;
+.flowerScene {
+  width: min(94%, 20rem);
+  height: 16.2rem;
   position: relative;
-  animation: orbitFloat 6s ease-in-out infinite;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 
-.core {
+.flower {
+  --petal-a: #ff8ba6;
+  --petal-b: #ffbc87;
+  --core: #ffcf70;
+  --stem-a: #8ac58f;
+  --stem-b: #5f9a6b;
+  position: relative;
+  width: 5.6rem;
+  height: 14.2rem;
+  transform-origin: 50% 100%;
+  animation: flowerSway 4.8s ease-in-out infinite;
+}
+
+.flowerLeft {
+  --petal-a: #ff98b3;
+  --petal-b: #ffd39f;
+  --core: #ffd675;
+  animation-delay: 0s;
+}
+
+.flowerCenter {
+  --petal-a: #ffa0bf;
+  --petal-b: #ff9f7d;
+  --core: #ffe08a;
+  height: 15.1rem;
+  animation-duration: 5.2s;
+  animation-delay: 0.35s;
+}
+
+.flowerRight {
+  --petal-a: #ff8dc3;
+  --petal-b: #ffc58c;
+  --core: #ffdf8e;
+  animation-duration: 4.5s;
+  animation-delay: 0.7s;
+}
+
+.flowerStem {
   position: absolute;
-  width: 4.8rem;
-  height: 4.8rem;
+  left: 50%;
+  bottom: 1.1rem;
+  width: 0.7rem;
+  height: 8.6rem;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--stem-a), var(--stem-b));
+  box-shadow: inset 0.08rem 0 0 rgba(255, 255, 255, 0.35);
+}
+
+.flowerLeaf {
+  position: absolute;
+  bottom: 4.2rem;
+  width: 2rem;
+  height: 1rem;
+  border-radius: 100% 0 100% 0;
+  background: linear-gradient(150deg, #8dc798, #6fae76);
+}
+
+.flowerLeafLeft {
+  left: 1.1rem;
+  transform: rotate(-24deg);
+}
+
+.flowerLeafRight {
+  right: 1.1rem;
+  transform: scaleX(-1) rotate(-24deg);
+}
+
+.blossom {
+  position: absolute;
+  left: 50%;
+  bottom: 8.9rem;
+  width: 5.15rem;
+  height: 5.15rem;
+  transform: translateX(-50%);
+  animation: bloomPulse 3.8s ease-in-out infinite;
+}
+
+.blossomPetal {
+  position: absolute;
+  width: 2rem;
+  height: 2.8rem;
+  left: 50%;
+  top: 50%;
+  border-radius: 999px 999px 999px 999px;
+  background: linear-gradient(170deg, var(--petal-a), var(--petal-b));
+  box-shadow:
+    0 0.2rem 0.55rem rgba(211, 111, 129, 0.28),
+    inset 0.08rem 0.05rem 0 rgba(255, 255, 255, 0.35);
+  transform-origin: center center;
+}
+
+.blossomPetalOne {
+  transform: translate(-50%, -50%) rotate(0deg) translateY(-1.55rem);
+}
+
+.blossomPetalTwo {
+  transform: translate(-50%, -50%) rotate(60deg) translateY(-1.55rem);
+}
+
+.blossomPetalThree {
+  transform: translate(-50%, -50%) rotate(120deg) translateY(-1.55rem);
+}
+
+.blossomPetalFour {
+  transform: translate(-50%, -50%) rotate(180deg) translateY(-1.55rem);
+}
+
+.blossomPetalFive {
+  transform: translate(-50%, -50%) rotate(240deg) translateY(-1.55rem);
+}
+
+.blossomPetalSix {
+  transform: translate(-50%, -50%) rotate(300deg) translateY(-1.55rem);
+}
+
+.flowerCore {
+  position: absolute;
+  width: 1.52rem;
+  height: 1.52rem;
   border-radius: 50%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle at 30% 25%, #fff6ef, #ffb89e);
+  background: radial-gradient(circle at 32% 28%, #fff7dc, var(--core));
   box-shadow:
-    0 0 0 0.85rem rgba(255, 171, 143, 0.2),
-    0 0 0 1.7rem rgba(255, 171, 143, 0.1);
+    0 0 0 0.35rem rgba(255, 226, 156, 0.3),
+    inset 0.06rem 0.06rem 0 rgba(255, 255, 255, 0.4);
 }
 
-.ring {
+.flowerGround {
   position: absolute;
-  inset: 0.88rem;
-  border-radius: 50%;
-  border: 1px dashed rgba(177, 92, 67, 0.38);
-}
-
-.ringOne {
-  animation: spinSlow 14s linear infinite;
-}
-
-.ringTwo {
-  inset: 2.1rem;
-  border-style: solid;
-  border-color: rgba(177, 92, 67, 0.18);
-  animation: spinReverse 11s linear infinite;
-}
-
-.orbitPetal {
-  position: absolute;
-  width: 2rem;
-  height: 3.2rem;
-  border-radius: 76% 24% 70% 30%;
-  background: linear-gradient(175deg, #ff8ea6, #ffbd88);
-  box-shadow: 0 6px 12px rgba(219, 112, 94, 0.2);
-  animation: petalPulse 3s ease-in-out infinite;
-}
-
-.petalOne {
-  top: 0.3rem;
-  left: 50%;
-  transform: translateX(-50%) rotate(0deg);
-  animation-delay: 0s;
-}
-
-.petalTwo {
-  top: 1.8rem;
-  right: 2rem;
-  transform: rotate(42deg);
-  animation-delay: 0.25s;
-}
-
-.petalThree {
-  top: 50%;
-  right: 0.4rem;
-  transform: translateY(-50%) rotate(90deg);
-  animation-delay: 0.5s;
-}
-
-.petalFour {
-  bottom: 1.8rem;
-  right: 2rem;
-  transform: rotate(138deg);
-  animation-delay: 0.75s;
-}
-
-.petalFive {
-  bottom: 0.3rem;
-  left: 50%;
-  transform: translateX(-50%) rotate(180deg);
-  animation-delay: 1s;
-}
-
-.petalSix {
-  bottom: 1.8rem;
-  left: 2rem;
-  transform: rotate(228deg);
-  animation-delay: 1.25s;
-}
-
-.petalSeven {
-  top: 50%;
-  left: 0.4rem;
-  transform: translateY(-50%) rotate(270deg);
-  animation-delay: 1.5s;
-}
-
-.petalEight {
-  top: 1.8rem;
-  left: 2rem;
-  transform: rotate(315deg);
-  animation-delay: 1.75s;
+  left: 3%;
+  right: 3%;
+  bottom: 0.2rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(124, 78, 56, 0.28) 0,
+    rgba(124, 78, 56, 0.1) 56%,
+    transparent 88%
+  );
 }
 
 .artLabel {
@@ -1053,6 +1148,56 @@
   }
 }
 
+@keyframes skyDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-2%, 2%, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(2%, -1%, 0) scale(1.08);
+  }
+}
+
+@keyframes grainShift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(2%, -2%, 0);
+  }
+}
+
+@keyframes auroraSpin {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  to {
+    transform: rotate(360deg) scale(1.15);
+  }
+}
+
+@keyframes sparkFloat {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-120px, 120px, 0);
+  }
+}
+
+@keyframes sunlight {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate3d(2%, -3%, 0) scale(1.08);
+    opacity: 1;
+  }
+}
+
 @keyframes shimmer {
   from {
     transform: scale(1) translateY(-0.25rem);
@@ -1083,41 +1228,23 @@
   }
 }
 
-@keyframes orbitFloat {
+@keyframes flowerSway {
   0%,
   100% {
-    transform: translateY(0);
+    transform: rotate(-2deg);
   }
   50% {
-    transform: translateY(-0.55rem);
+    transform: rotate(2.5deg);
   }
 }
 
-@keyframes spinSlow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes spinReverse {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes petalPulse {
+@keyframes bloomPulse {
   0%,
   100% {
-    filter: saturate(100%);
+    transform: translateX(-50%) scale(1);
   }
   50% {
-    filter: saturate(130%);
+    transform: translateX(-50%) scale(1.06);
   }
 }
 
@@ -1275,21 +1402,24 @@
     min-height: 16rem;
   }
 
-  .orbitPetal {
-    width: 1.6rem;
-    height: 2.6rem;
+  .blossomPetal {
+    width: 1.8rem;
+    height: 2.45rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .page::before,
+  .page::after,
+  .motionField::before,
+  .motionField::after,
   .glow,
   .petalDrop,
   .girl,
   .armRight,
   .waveGlow,
-  .ring,
-  .orbit,
-  .orbitPetal,
+  .flower,
+  .blossom,
   .track,
   .reveal,
   .heroArt::before {
