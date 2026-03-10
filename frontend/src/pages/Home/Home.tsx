@@ -21,7 +21,7 @@ export default function Home() {
 
         <section className={`${styles.hero} ${styles.reveal} ${styles.delayTwo}`}>
           <div className={styles.heroText}>
-            <h1 className={styles.title}>Интереснро, а ты все еще сюда заходишь? =)</h1>
+            <h1 className={styles.title}>Интересно, а ты все еще сюда заходишь? =)</h1>
           </div>
 
           <div className={styles.heroArt} aria-hidden="true">
